@@ -9,6 +9,8 @@ Esta es una mini-aplicación de ejemplo para la compra de dispositivos móviles,
 - JavaScript ES6
 - CSS
 
+ - En las primeras versiones se ha desactivado eslint por un problema de configuración entre diferentes veresiones. Cuando se corrija se activará de nuevo.
+
 ## Cómo Ejecutar el Proyecto
 
 1.  Asegúrate de tener Node.js instalado.

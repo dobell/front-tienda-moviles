@@ -8,7 +8,10 @@ import { useCart } from '../context/CartContext'; // Importamos para actualizar 
 
 const ProductDetailPage = () => {
   const { id } = useParams();
-  const { data: product, loading, error } = useApi(fetchProductById, [id]);
+  const { data: product, loading, error } = useApi(
+    () => fetchProductById(id), // <--- Establecer 'id' de producto
+    [id] // <--- 'id' de página de producto
+  );
   const { setCartCount } = useCart(); // Usamos la función para actualizar el count global
 
   const [selectedColor, setSelectedColor] = useState('');
@@ -18,10 +21,10 @@ const ProductDetailPage = () => {
   // Efecto para preseleccionar opciones si solo hay una
   useEffect(() => {
     if (product) {
-      if (product.options.colors && product.colors.length === 1) {
+      if (product.options.colors && product.colors.length >= 1) {
         setSelectedColor(product.options.colors[0].code);
       }
-      if (product.options.storages && product.options.storages.length === 1) {
+      if (product.options.storages && product.options.storages.length >= 1) {
         setSelectedStorage(product.options.storages[0].code);
       }
     }
@@ -34,7 +37,7 @@ const ProductDetailPage = () => {
     }
 
     try {
-      // Asumiendo que el API espera 'colorCode' y 'storageCode'
+      // la API espera 'colorCode' y 'storageCode'
       const newCount = await addToCart(id, selectedColor, selectedStorage);
       setCartCount(newCount); // Actualizamos el count global
       setMessage('Producto añadido al carrito!');
