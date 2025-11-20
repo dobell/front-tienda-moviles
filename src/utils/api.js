@@ -31,6 +31,7 @@ export const fetchProducts = async () => {
  * @returns datos del producto indicado
  */
 export const fetchProductById = async (id) => {
+  console.log(`Buscando producto ${id}`)
   const cacheKey = `product_${id}`;
   let data = getFromCache(cacheKey);
 
