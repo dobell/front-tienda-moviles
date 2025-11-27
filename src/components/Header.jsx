@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
+// Importamos hooks de React-Redux
+import { useSelector } from 'react-redux';
 
 const Header = ({ breadcrumbs = [] }) => {
-  const { count } = useCart(); // Usamos el contexto para obtener el count de productos en el carro
+  // Obtenemos el count del estado de Redux en vez del contexto
+  const cartCount = useSelector((state) => state.cart.count);
 
   return (
     <header className="header">
@@ -20,7 +22,7 @@ const Header = ({ breadcrumbs = [] }) => {
       </div>
       <div className="header-right">
         <Link to="/cart" className="cart-count">
-          🛒 ({count})
+          🛒 ({cartCount})
         </Link>
       </div>
     </header>

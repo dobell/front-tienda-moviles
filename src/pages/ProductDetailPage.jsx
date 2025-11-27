@@ -4,7 +4,9 @@ import Header from '../components/Header';
 import { useApi } from '../hooks/useApi';
 import { fetchProductById } from '../utils/api';
 import { addToCart } from '../utils/api';
-import { useCart } from '../context/CartContext'; // Importamos para actualizar el count
+// Importamos hooks de React-Redux y la acción
+import { useDispatch } from 'react-redux';
+import { setCartCount } from '../features/cart/cartSlice'; // Importamos para actualizar el count
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -12,7 +14,8 @@ const ProductDetailPage = () => {
     () => fetchProductById(id), // <--- Establecer 'id' de producto
     [id] // <--- 'id' de página de producto
   );
-  const { setCartCount } = useCart(); // Usamos la función para actualizar el count global
+    // Obtenemos el dispatch de Redux
+  const dispatch = useDispatch();
 
   const [selectedColor, setSelectedColor] = useState('');
   const [selectedStorage, setSelectedStorage] = useState('');
@@ -39,7 +42,7 @@ const ProductDetailPage = () => {
     try {
       // la API espera 'colorCode' y 'storageCode'
       const newCount = await addToCart(id, selectedColor, selectedStorage);
-      setCartCount(newCount); // Actualizamos el count global
+      dispatch(setCartCount(newCount)); // actualizamos con redux
       setMessage('Producto añadido al carrito!');
     } catch (err) {
       setMessage('Error al añadir al carrito.');

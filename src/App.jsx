@@ -8,18 +8,15 @@ import './App.css'; // Archivo CSS para estilos básicos
 
 function App() {
   return (
-    <CartProvider>
-      <Router>
-        <div className="App">
-          <Routes>
-            <Route path="/" element={<ProductListPage />} />
-            <Route path="/product/:id" element={<ProductDetailPage />} />
-            {/* Opcional: Ruta para carrito, aunque solo muestra el contador en header */}
-            {/* <Route path="/cart" element={<CartPage />} /> */}
-          </Routes>
-        </div>
-      </Router>
-    </CartProvider>
+    // El Provider ahora está en index.js, no es necesario aquí
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<ProductListPage />} />
+          <Route path="/product/:id" element={<ProductDetailPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
